@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>event</title>
+	<style>
+		div{
+			width: 10px;
+			height: 10px;
+			background: green;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		section{
+			width: 800px;
+			height: 400px;
+			border: 1px solid red;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		window.onload=function(){
+			var section=document.querySelector('section');
+			//生成div
+			var str='';
+			for(var i=0; i<50; i++){
+				//一上来先隐藏div
+				str+='<div style="opacity:0;"></div>'	
+			}
+			//呈现在页面
+			section.innerHTML=str;
+			//获取div
+			var divs=document.querySelectorAll('div');
+			//后一个跟前一个走
+			section.onmousemove=function(ev){
+				//从最后一个倒着走
+				for(var i=divs.length-1; i>0; i--){
+					//后一个跟着前一个走
+					divs[i].style.left=divs[i-1].style.left;
+					divs[i].style.top=divs[i-1].style.top;
+					divs[i].style.opacity=divs[i-1].style.opacity;
+				}
+				//需要一个领头的
+				divs[0].style.left=ev.clientX+'px';
+				divs[0].style.top=ev.clientY+'px';
+				divs[0].style.opacity=1;
+			}
+		}
+	</script>
+	<h3>在框内移动鼠标试试？</h3>
+	<section>
+		
+	</section>
+</body>
+</html>
